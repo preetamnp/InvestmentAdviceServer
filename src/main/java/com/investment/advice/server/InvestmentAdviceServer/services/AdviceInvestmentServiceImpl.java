@@ -1,31 +1,49 @@
 package com.investment.advice.server.InvestmentAdviceServer.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.model.Asset;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
 @Service
 public class AdviceInvestmentServiceImpl implements AdviceInvestmentService {
 
-    public List<Asset> getAssets() {
-        Asset asset1 = new Asset();
-        asset1.setIsin(1234L);
-        asset1.setName("ABC CORP");
-        asset1.setQuantity(2);
-        asset1.setValue(1349.00);
-        asset1.setType("FIXED INCOME BOND");
-        Asset asset2 = new Asset();
-        asset2.setIsin(789L);
-        asset2.setName("XYZ CORP");
-        asset2.setQuantity(4);
-        asset2.setValue(1577.50);
-        asset2.setType("CORP BOND");
-        List<Asset> assets = new ArrayList<>();
-        assets.add(asset1);
-        assets.add(asset2);
-        return assets;
+
+
+    public List<Asset> getAssets(Integer riskLevel, Boolean esg) {
+        RestTemplate restTemplate = getRestTemplate();
+        String resourceUrl
+                = "http://localhost:9999/advice";
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(resourceUrl)
+                .queryParam("riskLevel", riskLevel)
+                .queryParam("esg", esg);
+
+        ResponseEntity<List<Asset>> response = restTemplate.exchange(
+                builder.toUriString(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Asset>>(){});
+        return response.getBody();
     }
+
+    private RestTemplate getRestTemplate() {
+            RestTemplate restTemplate = new RestTemplate();
+            MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+            converter.setSupportedMediaTypes(Collections.singletonList(MediaType.ALL));
+            restTemplate.getMessageConverters().add(converter);
+            return restTemplate;
+        }
+
 }
