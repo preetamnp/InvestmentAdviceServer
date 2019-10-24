@@ -1,0 +1,85 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a sample Investment Advice server.  You can find\nout more about Swagger at \n[http://youinvest.in](http://youinvest.in).\n"
+  version: 1.0.0
+  title: Investment Advice
+  termsOfService: http://youinvest.in/nothing
+  contact:
+    email: preetam.potadar@cognizant.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: virtserver.swaggerhub.com
+basePath: /preetamnp/InvestmentEngine/1.0.0
+tags:
+- name: advice
+  description: Advice about the investment based on risks
+  externalDocs:
+    description: Find out more about
+    url: http://youinvest.in
+schemes:
+- https
+- http
+paths:
+  /advice:
+    get:
+      tags:
+      - advice
+      summary: provide the advice based on risk and ESG flag
+      description: Provides multiple assets based on risk level and ESG flags
+      operationId: getAdvice
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: riskLevel
+        in: query
+        description: Specified Risk Level between 1 and 10
+        required: true
+        type: integer
+        maximum: 10
+        minimum: 1
+      - name: esg
+        in: query
+        description: Environment, social and governance
+        required: false
+        type: boolean
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Asset'
+        400:
+          description: Invalid risk values
+definitions:
+  Asset:
+    type: object
+    properties:
+      isin:
+        type: integer
+        format: int64
+      name:
+        type: string
+      quantity:
+        type: integer
+        format: int32
+      value:
+        type: number
+        format: double
+      type:
+        type: string
+    xml:
+      name: Advice
+  ApiResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      type:
+        type: string
+      message:
+        type: string
