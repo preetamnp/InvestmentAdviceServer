@@ -1,9 +1,7 @@
-package com.investment.advice.server.InvestmentAdviceServer.services;
+package com.investment.advice.server.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.model.Asset;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

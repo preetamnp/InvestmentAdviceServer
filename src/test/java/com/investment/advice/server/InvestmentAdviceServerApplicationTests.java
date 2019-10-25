@@ -1,4 +1,4 @@
-package com.investment.advice.server.InvestmentAdviceServer;
+package com.investment.advice.server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

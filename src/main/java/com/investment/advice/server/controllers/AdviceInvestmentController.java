@@ -1,14 +1,12 @@
-package com.investment.advice.server.InvestmentAdviceServer.controllers;
+package com.investment.advice.server.controllers;
 
-import com.investment.advice.server.InvestmentAdviceServer.services.AdviceInvestmentService;
+import com.investment.advice.server.services.AdviceInvestmentService;
 import io.swagger.api.AdviceApi;
 import io.swagger.model.Asset;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
-
 import java.util.List;
 
 @Controller
@@ -18,7 +16,7 @@ public class AdviceInvestmentController implements AdviceApi {
     private AdviceInvestmentService adviceInvestmentService;
 
     public ResponseEntity<List<Asset>> getAdvice (Integer riskLevel, Boolean esg) {
-        return new ResponseEntity<>(adviceInvestmentService.getAssets(), HttpStatus.OK);
+        return new ResponseEntity<>(adviceInvestmentService.getAssets(riskLevel,esg), HttpStatus.OK);
     }
 
 }
