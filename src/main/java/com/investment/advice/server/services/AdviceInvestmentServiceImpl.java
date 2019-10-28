@@ -18,7 +18,6 @@ import java.util.List;
 public class AdviceInvestmentServiceImpl implements AdviceInvestmentService {
 
 
-
     public List<Asset> getAssets(Integer riskLevel, Boolean esg) {
         RestTemplate restTemplate = getRestTemplate();
         String resourceUrl
