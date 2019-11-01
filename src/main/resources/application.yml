@@ -1,0 +1,10 @@
+server:
+  port: 8082
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /api-docs
+backendAdviceServer:
+  hostName: http://localhost:9999
+  adviceUri: /advice

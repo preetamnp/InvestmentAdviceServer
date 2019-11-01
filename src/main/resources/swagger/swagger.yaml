@@ -31,7 +31,6 @@ paths:
       operationId: getAdvice
       produces:
       - application/json
-      - application/xml
       parameters:
       - name: riskLevel
         in: query
