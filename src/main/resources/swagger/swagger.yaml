@@ -46,13 +46,38 @@ paths:
         type: boolean
       responses:
         200:
-          description: successful operation
+          description: successfull operation
           schema:
             type: array
             items:
               $ref: '#/definitions/Asset'
         400:
           description: Invalid risk values
+  /assets:
+    get:
+      tags:
+        - portfolio
+      summary: List of assets in Portfolio
+      description: Provides multiple assets based on Portfolio Id
+      operationId: getPortfolioAssets
+      produces:
+        - application/json
+      parameters:
+        - name: portfolioId
+          in: query
+          description: Specify Valid Portfolio Id
+          required: true
+          type: integer
+      responses:
+        200:
+          description: successfull operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Asset'
+        400:
+          description: Invalid portfolio assets request
+
 definitions:
   Asset:
     type: object

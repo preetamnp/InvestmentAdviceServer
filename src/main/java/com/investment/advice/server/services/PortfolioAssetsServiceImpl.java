@@ -7,19 +7,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AdviceInvestmentServiceImpl implements AdviceInvestmentService {
+public class PortfolioAssetsServiceImpl implements PortfolioAssetsService {
 
     private BackendApiAdapter backendApiAdapter;
 
-    public AdviceInvestmentServiceImpl(BackendApiAdapter backendApiAdapter) {
+    public PortfolioAssetsServiceImpl(BackendApiAdapter backendApiAdapter) {
         this.backendApiAdapter = backendApiAdapter;
     }
 
     @Override
-    public List<Asset> getAssets(Integer riskLevel, Boolean esg) {
+    public List<Asset> getAssets(Integer portfolioId) {
         //perform any model mappings from internal to external models.
         //since its a demo, we dont perform any model conversion
-        return backendApiAdapter.getAssets(riskLevel,esg);
+        return backendApiAdapter.getAssets(portfolioId);
     }
 
 }

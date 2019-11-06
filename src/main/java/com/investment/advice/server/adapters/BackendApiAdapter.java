@@ -12,12 +12,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @Component
-public class BackendAdviceApiAdapter {
+public class BackendApiAdapter {
 
     private RestTemplate restTemplate;
     private BackendAdviceServerProperties backendAdviceServerProperties;
 
-    public BackendAdviceApiAdapter(RestTemplate restTemplate, BackendAdviceServerProperties backendAdviceServerProperties) {
+    public BackendApiAdapter(RestTemplate restTemplate, BackendAdviceServerProperties backendAdviceServerProperties) {
         this.restTemplate  = restTemplate;
         this.backendAdviceServerProperties = backendAdviceServerProperties;
     }
@@ -33,6 +33,16 @@ public class BackendAdviceApiAdapter {
         return response.getBody();
     }
 
+    public List<Asset> getAssets(Integer portfolioId) {
+
+        UriComponentsBuilder builder = getUriComponentsBuilder(portfolioId);
+        ResponseEntity<List<Asset>> response = restTemplate.exchange(
+                builder.toUriString(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Asset>>(){});
+        return response.getBody();
+    }
     private UriComponentsBuilder getUriComponentsBuilder(Integer riskLevel, Boolean esg) {
 
         String resourceUrl
@@ -41,6 +51,15 @@ public class BackendAdviceApiAdapter {
         return UriComponentsBuilder.fromHttpUrl(resourceUrl)
                 .queryParam("riskLevel", riskLevel)
                 .queryParam("esg", esg);
+    }
+
+    private UriComponentsBuilder getUriComponentsBuilder(Integer portfolioId) {
+
+        String resourceUrl
+                = backendAdviceServerProperties.getHostName() + backendAdviceServerProperties.getAssetsUri();
+
+        return UriComponentsBuilder.fromHttpUrl(resourceUrl)
+                .queryParam("portfolioId", portfolioId);
     }
 
 

@@ -11,5 +11,6 @@ public class BackendAdviceServerProperties {
 
     private String hostName;
     private String adviceUri;
+    private String assetsUri;
 
 }

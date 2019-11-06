@@ -8,3 +8,4 @@ springfox:
 backendAdviceServer:
   hostName: http://localhost:9999
   adviceUri: /advice
+  assetsUri: /assets
