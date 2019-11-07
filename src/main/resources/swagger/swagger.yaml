@@ -27,7 +27,7 @@ paths:
       tags:
       - advice
       summary: provide the advice based on risk and ESG flag
-      description: Provides multiple assets based on risk level and ESG.
+      description: Provides multiple assets based on risk level and ESG(Environment, Social and Governance).
       operationId: getAdvice
       produces:
       - application/json
